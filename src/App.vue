@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <hello-world :msg= "message"/> 
   </div>
 </template>
 
 <script>
+//import StopWatch from './components/StopWatch.vue'  
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+    //StopWatch    //컴포넌트
+  },
+  data() {
+    return{
+        message: 'Oh Yes'
+    }
   }
 }
 </script>
