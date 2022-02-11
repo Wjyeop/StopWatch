@@ -1,24 +1,24 @@
 <template>
   <div id="app">
-    <hello-world :msg= "message"/> 
+    <stop-watch/>
   </div>
 </template>
 
 <script>
-//import StopWatch from './components/StopWatch.vue'  
-import HelloWorld from './components/HelloWorld.vue'
+import StopWatch from './components/StopWatch.vue'  
 
+//import HelloWorld from './components/HelloWorld.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
-    //StopWatch    //컴포넌트
-  },
-  data() {
-    return{
-        message: 'Oh Yes'
-    }
+    StopWatch    //컴포넌트
+		//HelloWorld
   }
+  //data() {
+   // return{
+    //    message: 'Oh Yes'
+   // }
+ // }
 }
 </script>
 
