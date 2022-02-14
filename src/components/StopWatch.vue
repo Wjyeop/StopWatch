@@ -22,7 +22,15 @@
     </b-button>
 </div>
 <div>
-	<label><h6>기록</h6>{{ timelog2 }}</label>
+<ul>
+  <li v-for="(item, index) in timelog"
+    :key="index"
+  >
+  {{ index+1 + "번 기록" }} : {{  getTimeLog(item) }}
+  
+  </li>
+</ul>
+
 </div>
 </div>
 </template>
@@ -37,7 +45,7 @@ export default {
             btn1Text:'시작',
             btn2Text:'기록',
             state:"ready",
-            timelog:[], 
+            timelog: [],
             timerId:0, //setInterval startTimer function 호출 변수
             time:0,
             startedTime:0,
@@ -67,10 +75,7 @@ export default {
         milisec: function() {
             var milisec = parseInt((this.stopWatchTime%1000)/10);
             return milisec >=10 ? milisec: '0' + milisec;
-        },
-				timelog2: function() {
-					return this.timelog;
-				}
+        }
 	
 
      },
@@ -82,7 +87,7 @@ export default {
 							if(this.state=="ready"){ // 시작
               this.start()
              }
-							else if(this.state=="started"){ //멈춤 기능
+							else if(this.state=="started"){ //멈춤
               this.stop()
              }
 							// else if(this.state=="stopped"){
@@ -124,12 +129,22 @@ export default {
 						this.btn1Text ='시작'
 						this.btn2Text ='초기화'
          },
+          getTimeLog(measuedTimedMillis) {
+							var hor = Math.floor((measuedTimedMillis / (1000 * 60 * 60)) % 24)
+							var min = Math.floor((measuedTimedMillis / (1000 * 60)) % 60)
+							var sec = Math.floor((measuedTimedMillis / 1000) % 60);
+              var milisec = parseInt((measuedTimedMillis % 1000)/10);
+              return (hor >=10 ? hor: '0' + hor )
+              + ':' 
+              +(min >=10 ? min: '0' + min)
+              + ':'
+              + (sec >=10 ? sec: '0' + sec)
+              + '.'
+              + (milisec >=10 ? milisec: '0' + milisec)
+        },
 					measure() {  //요청시점에 기록을 측정한다. 
-						//this.timelog = (Date.now() - this.startedTime)		
-						this.timelog[this.i] = (this.hours+':'+this.minutes+':'+this.seconds+'.'+this.milisec)
-						this.i++		
-						console.log(this.i)
-             //return console.log(this.hours+':'+this.minutes+':'+this.seconds+'.'+this.milisec)
+						const measuredTimeMillis = (Date.now() - this.startedTime)		
+            this.timelog.push(measuredTimeMillis)
          },
 					
 					reset() {
